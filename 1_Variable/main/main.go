@@ -2,6 +2,19 @@ package main
 
 import "fmt"
 
+// 函数外部的变量不是全局变量，他们属于 <<< 包内变量 >>>
+var aa = 3
+var bb = "bbb"
+
+// 这种写法是不被允许的
+// 函数外面一定要以关键字开头
+//bb := "abc"
+
+var (
+	cc = 77
+	dd = "qaz"
+)
+
 /**
 variableZeroValue 变量默认初值
 */
@@ -41,4 +54,6 @@ func main() {
 	variableInitialValue()
 	variableTypeDeduction()
 	variableTypeDeductionShorter()
+
+	fmt.Println(aa, bb, cc, dd)
 }
