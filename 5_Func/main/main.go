@@ -1,46 +1,51 @@
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-	"strconv"
-)
+import "fmt"
 
-func convertToBin(n int) string {
-	result := ""
-	if n == 0 {
-		return "0"
-	}
-
-	for ; n > 0; n /= 2 {
-		lsb := n % 2
-		result = strconv.Itoa(lsb) + result
-	}
-
-	return result
+// div 带余除法 13 / 4 = 3 ... 1
+func div(a, b int) (int, int) {
+	return a / b, a % b
 }
 
-func printFile(filename string) {
-	file, err := os.Open(filename)
-	if err != err {
-		panic(err)
+func div1(a, b int) (q, r int) {
+	return a / b, a % b
+}
+
+// 函数体较长时，不建议使用该方式
+func div2(a, b int) (q, r int) {
+	q = a / b
+	r = a % b
+	return
+}
+
+func eval(a, b int, op string) (int, error) {
+	switch op {
+	case "+":
+		return a + b, nil
+	case "-":
+		return a - b, nil
+	case "*":
+		return a * b, nil
+	case "/":
+		q, _ := div1(a, b)
+		return q, nil
+	default:
+		return 0, fmt.Errorf("unsupported operation: %s", op)
 	}
-
-	scanner := bufio.NewScanner(file)
-
-	for scanner.Scan() {
-		fmt.Println(scanner.Text())
-	}
-
 }
 func main() {
-	fmt.Println(
-		convertToBin(5),
-		convertToBin(13),
-		convertToBin(0),
-		convertToBin(12345678978765),
-	)
-	filename := "/Users/huxiaoting01/Coding/go/learngo/go-learning/3_Conditions/demo.txt"
-	printFile(filename)
+	fmt.Println(div(13, 4))
+	// cmd+alt+v 自动生成变量
+	q, r := div1(13, 3)
+	fmt.Println(q, r)
+
+	q1, r1 := div2(13, 5)
+	fmt.Println(q1, r1)
+
+	//if i, err := eval(8, 9, "<"); err != nil {
+	if i, err := eval(8, 9, "+"); err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(i)
+	}
 }
