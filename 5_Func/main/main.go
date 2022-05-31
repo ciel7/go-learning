@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"reflect"
+	"runtime"
+)
 
 // div 带余除法 13 / 4 = 3 ... 1
 func div(a, b int) (int, int) {
@@ -33,6 +38,27 @@ func eval(a, b int, op string) (int, error) {
 		return 0, fmt.Errorf("unsupported operation: %s", op)
 	}
 }
+
+func apply(op func(int, int) int, a, b int) int {
+	p := reflect.ValueOf(op).Pointer()
+	opName := runtime.FuncForPC(p).Name()
+	fmt.Printf("Calling Function %s with args (%d, %d) \n", opName, a, b)
+	return op(a, b)
+}
+
+func pow(a, b int) int {
+	return int(math.Pow(float64(a), float64(b)))
+}
+
+// sum 可变参数
+func sum(numbers ...int) int {
+	sum := 0
+	for i := range numbers {
+		sum += numbers[i]
+	}
+
+	return sum
+}
 func main() {
 	fmt.Println(div(13, 4))
 	// cmd+alt+v 自动生成变量
@@ -48,4 +74,16 @@ func main() {
 	} else {
 		fmt.Println(i)
 	}
+
+	a := 2
+	b := 3
+	fmt.Println(apply(pow, a, b))
+
+	fmt.Println(apply(func(a, b int) int {
+		return int(math.Pow(float64(a), float64(b)))
+	}, a, b))
+
+	fmt.Println(
+		sum(1, 2, 3),
+	)
 }
