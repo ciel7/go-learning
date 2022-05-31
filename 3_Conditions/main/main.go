@@ -42,6 +42,7 @@ func switchdemo(a, b int, op string) int {
 
 func grade(score int) string {
 	desc := ""
+
 	switch {
 	case score < 0 || score > 100:
 		panic(fmt.Sprintf("Wrong Score: %d", score))
@@ -54,6 +55,7 @@ func grade(score int) string {
 	case score <= 100:
 		desc = "A"
 	}
+
 	return desc
 }
 
