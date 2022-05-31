@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strconv"
 )
 
@@ -18,6 +20,20 @@ func convertToBin(n int) string {
 
 	return result
 }
+
+func printFile(filename string) {
+	file, err := os.Open(filename)
+	if err != err {
+		panic(err)
+	}
+
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+
+}
 func main() {
 	fmt.Println(
 		convertToBin(5),
@@ -25,4 +41,6 @@ func main() {
 		convertToBin(0),
 		convertToBin(12345678978765),
 	)
+	filename := "/Users/huxiaoting01/Coding/go/learngo/go-learning/3_Conditions/demo.txt"
+	printFile(filename)
 }
