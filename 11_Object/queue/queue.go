@@ -1,5 +1,6 @@
 package queue
 
+// 别名
 type Queue []int
 
 func (q *Queue) Push(v int) {
