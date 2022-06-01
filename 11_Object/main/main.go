@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"go-learning/11_Object/queue"
 	"go-learning/11_Object/tree"
 )
 
@@ -59,6 +61,16 @@ func main() {
 	//	{6, nil, &root},
 	//}
 	//fmt.Println(nodes)
+
+	// 测试 queue 部分 - 关注：11_Object/queue/queue.go
+	q := queue.Queue{}
+	q.Push(1)
+	q.Push(2)
+	q.Push(3)
+	fmt.Println(q)
+	fmt.Println(q.Pop())
+	fmt.Println(q.Pop())
+	fmt.Println(q.IsEmpty())
 }
 
 // 值接收者 vs 指针接收者
